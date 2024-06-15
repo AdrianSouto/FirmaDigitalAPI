@@ -9,7 +9,7 @@ import { Patch } from '@nestjs/common';
 export class UsersController {
   constructor(private userService: UsersService ) {}
 
-  @Post('/create')
+  @Post()
   async signUp(@Body() user: User): Promise<User> {
     return await this.userService.createUser(user);
   }
@@ -27,10 +27,10 @@ export class UsersController {
   }
   @Get(':id/formation')
   async getFormation(@Param('id') id: number): Promise<User> {
-    return this.userService.getFormation(id);
+    return this.userService.getUser(id);
   }
-  @Patch(':id')
-  async manage(@Param('id') id: number, @Body() user: User): Promise<User> {
-    return this.userService.manageUser(id, user);
+  @Get('/user')
+  getUser(): Promise<boolean> {
+    return this.userService.checkUser('adrian', '123456');
   }
 }

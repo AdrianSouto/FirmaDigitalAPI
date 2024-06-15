@@ -12,8 +12,4 @@ export class AppController {
   getAllUsers(): Promise<User[]> {
     return this.appService.getAllUsers();
   }
-  @Get('/user')
-  getUser(): Promise<boolean> {
-    return this.appService.checkUser('adrian', '123456');
-  }
 }

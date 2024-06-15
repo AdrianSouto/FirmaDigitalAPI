@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
-@Injectable()
+@Injectable() 
 export class UsersService {
   constructor(
     @InjectRepository(User)
@@ -34,12 +34,14 @@ export class UsersService {
     return this.userRepository.find();
   }
   //mostrar formacion del usuario 
-  async getFormation(id: number): Promise<User> {
+  async getUser(id: number): Promise<User> {
     return this.userRepository.findOne({ where: { id } });
   }
-  //gestionar al usuario 
-  async manageUser(id: number, user: User): Promise<User> {
-    await this.userRepository.update(id, user);
-    return this.userRepository.findOne({ where: { id } });
+  async checkUser(userName: string, userPass: string): Promise<boolean> {
+    return await this.userRepository.findOneBy({
+      username: userName,
+      password: userPass
+    }) != null;
   }
+ 
 }

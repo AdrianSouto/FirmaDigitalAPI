@@ -12,10 +12,5 @@ export class AppService {
     return this.userRepository.find();
   }
 
-  async checkUser(userName: string, userPass: string): Promise<boolean> {
-    return await this.userRepository.findOneBy({
-      username: userName,
-      password: userPass
-    }) != null;
-  }
+ 
 }
