@@ -2,7 +2,6 @@ import { Controller, Get, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { User } from './entities/user.entity';
 import { ValidationGuard } from './validation/validation.guard';
-
 @UseGuards(ValidationGuard)
 @Controller()
 export class AppController {

@@ -19,10 +19,8 @@ export class UsersService {
   }
   //eliminar usuario
   async deleteUser(id: number): Promise<void> {
-    await this.userRepository.createQueryBuilder()
-      .delete()
-      .where('id = :id', { id })
-      .execute();
+    await this.userRepository.delete(id)
+     
   }
   //modificar usuario 
   async updateUser(id: number, user: User): Promise<User> {
