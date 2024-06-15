@@ -1,6 +1,6 @@
 import { Controller, Post, Body , Get} from '@nestjs/common';
 import {  UsersService } from './users.service';
-import { User } from '../entities/user.entity';
+import { User } from './entities/user.entity';
 import { Delete } from '@nestjs/common';
 import { Param } from '@nestjs/common';
 import { Patch } from '@nestjs/common';
