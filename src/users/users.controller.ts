@@ -10,7 +10,7 @@ export class UsersController {
   constructor(private userService: UsersService ) {}
 
   @Post()
-  async signUp(@Body() user: User): Promise<User> {
+  async create(@Body() user: User): Promise<User> {
     return await this.userService.createUser(user);
   }
   @Delete(':id')
