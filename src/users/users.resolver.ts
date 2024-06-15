@@ -15,7 +15,7 @@ export class UsersResolver {
 
   @Query(() => User)
   findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.usersService.getFormation(id);
+    return this.usersService.getUser(id);
   }
 
   @Mutation(() => User)
@@ -38,8 +38,8 @@ export class UsersResolver {
     @Args('id', { type: () => Int }) id: number,
   ) {
     this.usersService.deleteUser(id).catch(() => {
-      return false
+      return false;
     });
-    return true
+    return true;
   }
 }
