@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { User } from './entities/user.entity';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -15,10 +16,11 @@ import { User } from './entities/user.entity';
       password: 'admin',
       database: 'firma',
       entities: [join(__dirname, '**', '*.entity.{ts,js}')],
-      synchronize: false,
+      synchronize: true,
       autoLoadEntities: true,
     }),
     TypeOrmModule.forFeature([User]),
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
