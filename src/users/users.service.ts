@@ -19,10 +19,7 @@ export class UsersService {
   }
   //eliminar usuario
   async deleteUser(id: number): Promise<void> {
-    await this.userRepository.createQueryBuilder()
-      .delete()
-      .where('id = :id', { id })
-      .execute();
+    await this.userRepository.delete(id)
   }
   //modificar usuario 
   async updateUser(id: number, user: User): Promise<User> {
@@ -34,12 +31,14 @@ export class UsersService {
     return this.userRepository.find();
   }
   //mostrar formacion del usuario 
-  async getFormation(id: number): Promise<User> {
+  async getUser(id: number): Promise<User> {
     return this.userRepository.findOne({ where: { id } });
   }
-  //gestionar al usuario 
-  async manageUser(id: number, user: User): Promise<User> {
-    await this.userRepository.update(id, user);
-    return this.userRepository.findOne({ where: { id } });
+  async checkUser(userName: string, userPass: string): Promise<boolean> {
+    return await this.userRepository.findOneBy({
+      username: userName,
+      password: userPass
+    }) != null;
   }
+
 }
