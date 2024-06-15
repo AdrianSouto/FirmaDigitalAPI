@@ -25,12 +25,12 @@ export class UsersController {
   async getUsers(): Promise<User[]> {
     return this.userService.getUsers();
   }
-  @Get(':id/formation')
-  async getFormation(@Param('id') id: number): Promise<User> {
+  @Get(':id')
+  async getUser(@Param('id') id: number): Promise<User> {
     return this.userService.getUser(id);
   }
   @Get('/user')
-  getUser(): Promise<boolean> {
+  checkUser(): Promise<boolean> {
     return this.userService.checkUser('adrian', '123456');
   }
 }

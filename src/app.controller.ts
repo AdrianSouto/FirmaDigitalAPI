@@ -7,7 +7,6 @@ import { ValidationGuard } from './validation/validation.guard';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-
   @Get()
   getAllUsers(): Promise<User[]> {
     return this.appService.getAllUsers();
