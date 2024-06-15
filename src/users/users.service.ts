@@ -20,7 +20,6 @@ export class UsersService {
   //eliminar usuario
   async deleteUser(id: number): Promise<void> {
     await this.userRepository.delete(id)
-     
   }
   //modificar usuario 
   async updateUser(id: number, user: User): Promise<User> {

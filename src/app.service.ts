@@ -11,6 +11,4 @@ export class AppService {
   getAllUsers(): Promise<User[]> {
     return this.userRepository.find();
   }
-
- 
 }
