@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import { ValidationGuard } from './validation/validation.guard';
+import { Controller } from '@nestjs/common';
 @Controller()
 export class AppController {
 }
