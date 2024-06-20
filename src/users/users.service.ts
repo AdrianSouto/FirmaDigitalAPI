@@ -1,24 +1,24 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
+import { compare, hash } from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private jwtService: JwtService,
   ) {
   }
 
   //crear usuario
-  async createUser(createUser: User): Promise<User> {
-    try {
-      const user = await this.userRepository.create(createUser);
-      return await this.userRepository.save(user);
-    } catch (err) {
-      // Manejo de errores
-    }
+  async createUser(user: User): Promise<User> {
+      user.password = await hash(user.password, 10);
+      const createdUser = this.userRepository.create(user);
+      return await this.userRepository.save(createdUser);
   }
 
   //eliminar usuario
@@ -42,14 +42,19 @@ export class UsersService {
     return this.userRepository.findOne({ where: { id } });
   }
 
-  async checkUser(userName: string, userPass: string): Promise<boolean> {
-    if (userName && userPass)
-      return await this.userRepository.findOneBy({
-        username: userName,
-        password: userPass,
-      }) != null;
-    else
-      return false;
+  async checkUser(
+    username: string,
+    pass: string,
+  ): Promise<string> {
+    const user = await this.findByUsername(username);
+    if (!(await compare(pass, user.password))) {
+      throw new HttpException('Invalid credentials', 401);
+    }
+    const payload = { id: user.id, username: user.username };
+    return await this.jwtService.signAsync(payload);
   }
 
+  private async findByUsername(username: string) {
+      return this.userRepository.findOne({ where: { username }});
+  }
 }

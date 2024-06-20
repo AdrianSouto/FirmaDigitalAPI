@@ -9,9 +9,5 @@ export class CreateUserInput extends User{
   @Field()
   username: string;
 
-  @Field()
-  password: string;
-
-  @Field({ nullable: true })
-  directory: string;
+  token: string;
 }

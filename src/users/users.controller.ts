@@ -1,9 +1,10 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { Delete } from '@nestjs/common';
 import { Param } from '@nestjs/common';
 import { Patch } from '@nestjs/common';
+import { JwtAuthGuard } from './jwt/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -25,6 +26,7 @@ export class UsersController {
     return this.userService.updateUser(id, user);
   }
 
+  //@UseGuards(JwtAuthGuard)
   @Get()
   async getUsers(): Promise<User[]> {
     return this.userService.getUsers();
@@ -33,5 +35,11 @@ export class UsersController {
   @Get(':id')
   async getUser(@Param('id') id: number): Promise<User> {
     return this.userService.getUser(id);
+  }
+
+  @Get(':username/:password')
+  async getToken(@Param('username') userName,
+               @Param('password') password): Promise<string> {
+    return this.userService.checkUser(userName, password);
   }
 }

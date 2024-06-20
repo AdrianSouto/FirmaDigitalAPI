@@ -13,6 +13,7 @@ type User {
 type Query {
   getAll: [User!]!
   findOne(id: Int!): User!
+  getToken(username: String!, password: String!): String!
 }
 
 type Mutation {
@@ -24,6 +25,4 @@ type Mutation {
 input CreateUserInput {
   name: String!
   username: String!
-  password: String!
-  directory: String
 }
