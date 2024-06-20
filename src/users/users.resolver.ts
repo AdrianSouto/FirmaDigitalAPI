@@ -42,4 +42,12 @@ export class UsersResolver {
     });
     return true;
   }
+
+  @Query((returns) => String)
+  async getToken(
+    @Args('username') userName: string,
+    @Args('password') password: string,
+  ) {
+    return this.usersService.checkUser(userName, password)
+  }
 }
