@@ -26,7 +26,7 @@ export class UsersController {
     return this.userService.updateUser(id, user);
   }
 
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get()
   async getUsers(): Promise<User[]> {
     return this.userService.getUsers();
