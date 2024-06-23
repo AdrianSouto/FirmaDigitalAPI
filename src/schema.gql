@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 type User {
-  id: Int!
+  id: ID!
   name: String!
   username: String!
   password: String!
@@ -12,14 +12,14 @@ type User {
 
 type Query {
   getAll: [User!]!
-  findOne(id: Int!): User!
+  findOne(id: String!): User!
   getToken(username: String!, password: String!): String!
 }
 
 type Mutation {
   createUser(newUser: CreateUserInput!): User!
-  updateUser(idUser: Int!, newProps: CreateUserInput!): User!
-  deleteUser(id: Int!): Boolean!
+  updateUser(idUser: String!, newProps: CreateUserInput!): User!
+  deleteUser(id: String!): Boolean!
 }
 
 input CreateUserInput {

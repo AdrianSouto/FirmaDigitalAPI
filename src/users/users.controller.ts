@@ -17,12 +17,12 @@ export class UsersController {
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: number): Promise<void> {
+  async delete(@Param('id') id: string): Promise<void> {
     await this.userService.deleteUser(id);
   }
 
   @Patch(':id')
-  async update(@Param('id') id: number, @Body() user: User): Promise<User> {
+  async update(@Param('id') id: string, @Body() user: User): Promise<User> {
     return this.userService.updateUser(id, user);
   }
 
@@ -33,7 +33,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  async getUser(@Param('id') id: number): Promise<User> {
+  async getUser(@Param('id') id: string): Promise<User> {
     return this.userService.getUser(id);
   }
 

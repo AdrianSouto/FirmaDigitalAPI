@@ -1,4 +1,4 @@
-import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -22,12 +22,12 @@ export class UsersService {
   }
 
   //eliminar usuario
-  async deleteUser(id: number): Promise<void> {
+  async deleteUser(id: string): Promise<void> {
     await this.userRepository.delete(id);
   }
 
   //modificar usuario
-  async updateUser(id: number, user: User): Promise<User> {
+  async updateUser(id: string, user: User): Promise<User> {
     await this.userRepository.update(id, user);
     return this.userRepository.findOne({ where: { id } });
   }
@@ -38,7 +38,7 @@ export class UsersService {
   }
 
   //mostrar formacion del usuario
-  async getUser(id: number): Promise<User> {
+  async getUser(id: string): Promise<User> {
     return this.userRepository.findOne({ where: { id } });
   }
 
