@@ -1,5 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { Controller } from '@nestjs/common';
+import { Controller , Get } from '@nestjs/common';
+
 @Controller()
 export class AppController {
+ 
 }
