@@ -5,8 +5,10 @@ import { Delete } from '@nestjs/common';
 import { Param } from '@nestjs/common';
 import { Patch } from '@nestjs/common';
 import { JwtAuthGuard } from './jwt/jwt-auth.guard';
-import { ApiOperation, ApiParam, ApiResponse, ApiBody } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiResponse, ApiBody, ApiBearerAuth , ApiTags } from '@nestjs/swagger';
 
+@ApiTags('users')
+@ApiBearerAuth()
 @Controller('users')
 export class UsersController {
   constructor(private userService: UsersService) {
@@ -15,7 +17,6 @@ export class UsersController {
   @Post()
   @ApiOperation({ summary: 'crear usuario' })
   @ApiResponse({ status: 201, description: 'successful answer', type: User })
-  @ApiResponse({ status: 400, description: 'Bad request' })
   async create(@Body() user: User): Promise<User> {
     return await this.userService.createUser(user);
   }
@@ -59,6 +60,7 @@ export class UsersController {
   @ApiParam({ name: 'username/:password', description: 'password user' })
   @ApiResponse({ status: 200, description: 'successful answer', type: User })
   @ApiResponse({ status: 401 , description: 'Unauthorized' })
+
   async getToken(@Param('username') userName,
                @Param('password') password): Promise<string> {
     return this.userService.checkUser(userName, password);
