@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
+type UserEntity {
   id: ID!
   name: String!
   username: String!
@@ -11,14 +11,14 @@ type User {
 }
 
 type Query {
-  getAll: [User!]!
-  findOne(id: String!): User!
+  getAll: [UserEntity!]!
+  findOne(id: String!): UserEntity!
   getToken(username: String!, password: String!): String!
 }
 
 type Mutation {
-  createUser(newUser: CreateUserInput!): User!
-  updateUser(idUser: String!, newProps: CreateUserInput!): User!
+  createUser(newUser: CreateUserInput!): UserEntity!
+  updateUser(idUser: String!, newProps: CreateUserInput!): UserEntity!
   deleteUser(id: String!): Boolean!
 }
 

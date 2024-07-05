@@ -1,21 +1,21 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
+import { UserEntity } from './entities/user.entity';
 import { compare, hash } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
     private jwtService: JwtService,
   ) {
   }
 
   //crear usuario
-  async createUser(user: User): Promise<User> {
+  async createUser(user: UserEntity): Promise<UserEntity> {
       user.password = await hash(user.password, 10);
       const createdUser = this.userRepository.create(user);
       return await this.userRepository.save(createdUser);
@@ -28,19 +28,19 @@ export class UsersService {
   }
 
   //modificar usuario
-  async updateUser(id: string, newUser: User): Promise<User> {
+  async updateUser(id: string, newUser: UserEntity): Promise<UserEntity> {
     const user = this.getUser(id);
     await this.userRepository.update(id, newUser);
     return user;
   }
 
   //listar usuario
-  async getUsers(): Promise<User[]> {
+  async getUsers(): Promise<UserEntity[]> {
     return this.userRepository.find();
   }
 
   //mostrar formacion del usuario
-  async getUser(id: string): Promise<User> {
+  async getUser(id: string): Promise<UserEntity> {
     const user = this.userRepository.findOne({ where: { id } });
     if (!user)
       throw new HttpException('User not found', 404);
