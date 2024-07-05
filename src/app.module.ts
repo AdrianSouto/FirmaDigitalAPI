@@ -3,22 +3,23 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
-import { User } from './users/entities/user.entity';
+import { UserEntity } from './users/entities/user.entity';
 import { UsersModule } from './users/users.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule } from '@nestjs/config';
 import { MulterModule } from '@nestjs/platform-express';
+import { DocumentEntity } from './entities/document.entity';
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
-      include: [UsersModule],
+      include: [UsersModule, AppModule],
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       playground: true,
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([UserEntity, DocumentEntity]),
     ConfigModule.forRoot(),
     UsersModule,
     TypeOrmModule.forRoot({
@@ -34,7 +35,7 @@ import { MulterModule } from '@nestjs/platform-express';
     }),
     MulterModule.registerAsync({
       useFactory: () => ({
-        dest: './upload',
+        dest: './storage',
       }),
     }),
   ],

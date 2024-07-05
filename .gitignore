@@ -62,6 +62,7 @@ pnpm-lock.yaml
 .prettierignore
 *.http
 *.spec.ts
+storage
 
 #test
 /test
