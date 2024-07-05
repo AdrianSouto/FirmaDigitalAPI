@@ -5,7 +5,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: 'user', database: 'firma' })
 @ObjectType()
-export class User {
+export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => ID)
   @ApiProperty({ example: '4de373fc-61cd-456e-a1ca-701443e6f204', description: 'id user' })
