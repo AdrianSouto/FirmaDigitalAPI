@@ -25,4 +25,6 @@ type Mutation {
 input CreateUserInput {
   name: String!
   username: String!
+  password: String!
+  directory: String
 }

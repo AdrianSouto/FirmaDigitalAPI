@@ -8,26 +8,26 @@ import { ApiProperty } from '@nestjs/swagger';
 export class User {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => ID)
-  @ApiProperty({ example: '001101', description: 'id user' })
+  @ApiProperty({ example: '4de373fc-61cd-456e-a1ca-701443e6f204', description: 'id user' })
   id: string;
 
   @Column()
   @Field()
-  @ApiProperty({ example: 'Carlos Garcia', description: 'name' })
+  @ApiProperty({ example: 'Carlos Garcia', description: 'Nombre de la persona' })
   name: string;
 
   @Column()
   @Field()
-  @ApiProperty({ example: 'GarciaCarl', description: 'User name' })
+  @ApiProperty({ example: 'garciacarl', description: 'Nombre de usuario' })
   username: string;
 
-  @ApiProperty({ example: 12345, description: 'password' })
+  @ApiProperty({ example: '12345', description: 'Contraseña' })
   @Column()
   @Field()
   password: string;
 
   @Column({ nullable: true })
   @Field({ nullable: true })
-  @ApiProperty({ example: 'https://www.ejemplo.com/', description: 'directory' })
+  @ApiProperty({ example: 'garciacarl', description: 'directory', nullable: true})
   directory: string;
 }
