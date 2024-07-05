@@ -33,7 +33,7 @@ export class UsersController {
   @ApiOperation({ summary: 'actualizar informacion del usuario' })
   @ApiParam({ name: 'id', description: 'Usuario ID' })
   @ApiResponse({ status: 200, description: 'successful answer', type: User })
-  @ApiResponse({ status: 404, description: 'Invalid credentials' })
+  @ApiResponse({ status: 401, description: 'Invalid credentials' })
   async update(@Param('id') id: string, @Body() user: User): Promise<User> {
     return this.userService.updateUser(id, user);
   }
@@ -60,9 +60,8 @@ export class UsersController {
   @ApiParam({ name: 'username/:password', description: 'password user' })
   @ApiResponse({ status: 200, description: 'successful answer', type: User })
   @ApiResponse({ status: 401 , description: 'Unauthorized' })
-
   async getToken(@Param('username') userName,
                @Param('password') password): Promise<string> {
-    return this.userService.checkUser(userName, password);
+    return this.userService.getToken(userName, password);
   }
 }

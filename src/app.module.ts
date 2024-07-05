@@ -8,7 +8,6 @@ import { UsersModule } from './users/users.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule } from '@nestjs/config';
-import { SwaggerController } from './swaggerController';
 
 @Module({
   imports: [
@@ -33,7 +32,7 @@ import { SwaggerController } from './swaggerController';
       autoLoadEntities: true,
     }),
   ],
-  controllers: [AppController, SwaggerController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

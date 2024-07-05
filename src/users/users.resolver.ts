@@ -51,6 +51,6 @@ export class UsersResolver {
     @Args('username') userName: string,
     @Args('password') password: string,
   ) {
-    return this.usersService.checkUser(userName, password)
+    return this.usersService.getToken(userName, password)
   }
 }

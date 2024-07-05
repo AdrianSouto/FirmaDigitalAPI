@@ -23,13 +23,15 @@ export class UsersService {
 
   //eliminar usuario
   async deleteUser(id: string): Promise<void> {
+    this.getUser(id);
     await this.userRepository.delete(id);
   }
 
   //modificar usuario
-  async updateUser(id: string, user: User): Promise<User> {
-    await this.userRepository.update(id, user);
-    return this.userRepository.findOne({ where: { id } });
+  async updateUser(id: string, newUser: User): Promise<User> {
+    const user = this.getUser(id);
+    await this.userRepository.update(id, newUser);
+    return user;
   }
 
   //listar usuario
@@ -39,10 +41,13 @@ export class UsersService {
 
   //mostrar formacion del usuario
   async getUser(id: string): Promise<User> {
-    return this.userRepository.findOne({ where: { id } });
+    const user = this.userRepository.findOne({ where: { id } });
+    if (!user)
+      throw new HttpException('User not found', 404);
+    return user;
   }
 
-  async checkUser(
+  async getToken(
     username: string,
     pass: string,
   ): Promise<string> {
