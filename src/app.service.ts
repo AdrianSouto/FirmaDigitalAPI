@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DocumentEntity } from './entities/document.entity';
-
-
+import { join } from 'path';
+import { readdir } from 'fs/promises';
 @Injectable()
 export class AppService {
   constructor(
@@ -24,5 +24,10 @@ export class AppService {
       fileNames.push(file.originalname);
     });
     return fileNames;
+  }
+  async getFiles() {
+    const uploadsPath = join(__dirname, '..', 'files');
+    const files = await readdir(uploadsPath);
+    return files;
   }
 }
