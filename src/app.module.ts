@@ -14,13 +14,12 @@ import { DocumentEntity } from './entities/document.entity';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
-      include: [UsersModule],
+      include: [UsersModule, AppModule],
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       playground: true,
     }),
-    TypeOrmModule.forFeature([UserEntity]),
-    TypeOrmModule.forFeature([DocumentEntity]),
+    TypeOrmModule.forFeature([UserEntity, DocumentEntity]),
     ConfigModule.forRoot(),
     UsersModule,
     TypeOrmModule.forRoot({
